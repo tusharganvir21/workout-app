@@ -1,0 +1,9 @@
+.background-image {
+    position: absolute;
+    inset: 0;
+    background-image: url('../assets/bg-img.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+  }
+  

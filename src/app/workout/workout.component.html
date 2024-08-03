@@ -1,0 +1,65 @@
+<div class="max-w-md mx-auto mt-10 p-6 bg-gray-800 shadow-md rounded-lg">
+  <h2 class="text-3xl font-bold text-orange-500 mb-6 text-center">Workout Tracker</h2>
+  <form (ngSubmit)="onSubmit(workoutForm)" #workoutForm="ngForm" novalidate>
+    <div class="mb-4">
+      <label for="userName" class="block text-gray-300">User Name <span class="text-red-500">*</span></label>
+      <input
+        type="text"
+        id="userName"
+        name="userName"
+        [(ngModel)]="workout.userName"
+        required
+        #userName="ngModel"
+        placeholder="Enter your name"
+        class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-900 text-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+        [ngClass]="{ 'border-red-500': userName.invalid && (userName.dirty || workoutForm.submitted) }"
+      />
+      <div *ngIf="userName.invalid && (userName.dirty || workoutForm.submitted)" class="text-red-500 text-sm">
+        <div *ngIf="userName.errors?.['required']">User Name is required.</div>
+      </div>
+    </div>
+    <div class="mb-4">
+      <label for="workoutType" class="block text-gray-300">Workout Type <span class="text-red-500">*</span></label>
+      <select
+        id="workoutType"
+        name="workoutType"
+        [(ngModel)]="workout.workoutType"
+        required
+        #workoutType="ngModel"
+        class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-900 text-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+        [ngClass]="{ 'border-red-500': workoutType.invalid && (workoutType.dirty || workoutForm.submitted) }"
+      >
+        <option value="" disabled>Select workout type</option>
+        <option *ngFor="let type of workoutTypes" [value]="type">{{ type }}</option>
+      </select>
+      <div *ngIf="workoutType.invalid && (workoutType.dirty || workoutForm.submitted)" class="text-red-500 text-sm">
+        <div *ngIf="workoutType.errors?.['required']">Workout Type is required.</div>
+      </div>
+    </div>
+    <div class="mb-4">
+      <label for="workoutMinutes" class="block text-gray-300">Workout Minutes <span class="text-red-500">*</span></label>
+      <input
+        type="number"
+        id="workoutMinutes"
+        name="workoutMinutes"
+        [(ngModel)]="workout.workoutMinutes"
+        required
+        #workoutMinutes="ngModel"
+        placeholder="Enter minutes"
+        min="1"
+        class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-900 text-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+        [ngClass]="{ 'border-red-500': workoutMinutes.invalid && (workoutMinutes.dirty || workoutForm.submitted) }"
+      />
+      <div *ngIf="workoutMinutes.invalid && (workoutMinutes.dirty || workoutForm.submitted)" class="text-red-500 text-sm">
+        <div *ngIf="workoutMinutes.errors?.['required']">Workout Minutes is required.</div>
+        <div *ngIf="workoutMinutes.errors?.['min']">Workout Minutes must be a positive number.</div>
+      </div>
+    </div>
+    <button
+      type="submit"
+      class="w-full bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-600 focus:outline-none focus:bg-orange-600 cursor-pointer"
+    >
+      Add Workout
+    </button>
+  </form>
+</div>

@@ -1,0 +1,85 @@
+<div class="container mx-auto mt-10 mb-6 p-8 bg-gray-800 shadow-md rounded-lg">
+  <!-- Search and filter UI -->
+  <div class="flex flex-col md:flex-row md:justify-between mb-6">
+    <input
+      type="text"
+      placeholder="Search by name"
+      [(ngModel)]="searchTerm"
+      class="mb-4 md:mb-0 px-4 py-3 border border-gray-600 rounded-md bg-gray-900 text-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+      (input)="updatePagination()"
+    />
+    <select
+      [(ngModel)]="filterType"
+      class="px-4 py-3 border border-gray-600 rounded-md bg-gray-900 text-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+      (change)="updatePagination()"
+    >
+      <option value="">All</option>
+      <option *ngFor="let type of workoutTypes" [value]="type">{{ type }}</option>
+    </select>
+  </div>
+
+  <!-- User table -->
+  <table *ngIf="filteredUsers.length > 0" class="min-w-full bg-gray-900 border border-gray-600 mb-8">
+    <thead>
+      <tr class="border-b border-gray-600">
+        <th class="py-3 px-4 text-left border-r border-gray-600 text-gray-300">Name</th>
+        <th class="py-3 px-4 text-left border-r border-gray-600 text-gray-300">Workouts</th>
+        <th class="py-3 px-4 text-left border-r border-gray-600 text-gray-300">Number of Workouts</th>
+        <th class="py-3 px-4 text-left border-r border-gray-600 text-gray-300">Total Workout Minutes</th>
+        <th class="py-3 px-4 text-left text-gray-300">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of filteredUsers | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class="border-b border-gray-600">
+        <td class="py-3 px-4 text-gray-300">{{ user.name }}</td>
+        <td class="py-3 px-4 text-gray-300">{{ user.workouts.join(', ') }}</td>
+        <td class="py-3 px-4 text-gray-300">{{ user.workouts.length }}</td>
+        <td class="py-3 px-4 text-gray-300">{{ user.totalMinutes }}</td>
+        <td class="py-3 px-4 text-gray-300">
+          <button (click)="deleteUser(user)" class="text-red-500 hover:text-red-400 bg-red-100 hover:bg-red-200 border border-red-300 px-3 py-2 text-sm rounded-md focus:outline-none focus:ring-1 focus:ring-red-500">Delete User</button>
+          <button (click)="showProgress(user)" class="text-blue-500 hover:text-blue-400 bg-blue-100 hover:bg-blue-200 border border-blue-300 px-3 py-2 text-sm rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 ml-3">Show Progress</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="filteredUsers.length === 0" class="text-center text-gray-500">
+    There are no entries.
+  </div>
+
+  <!-- Pagination UI -->
+  <div class="flex flex-col md:flex-row justify-between items-center mt-6">
+    <div class="flex items-center mb-4 md:mb-0">
+      <button
+        (click)="changePage(currentPage - 1)"
+        [disabled]="currentPage === 1"
+        class="px-4 py-2 mx-1 border border-gray-600 rounded-md bg-gray-900 text-gray-300 hover:bg-gray-700 disabled:opacity-50"
+      >
+        Previous
+      </button>
+      <ng-container *ngFor="let page of pages">
+        <button
+          (click)="changePage(page)"
+          [ngClass]="{'border-2 border-orange-500': currentPage === page}"
+          class="px-4 py-2 mx-1 border border-gray-600 rounded-md bg-gray-900 text-gray-300 hover:bg-gray-700"
+        >
+          {{ page }}
+        </button>
+      </ng-container>
+      <button
+        (click)="changePage(currentPage + 1)"
+        [disabled]="currentPage === totalPages"
+        class="px-4 py-2 mx-1 border border-gray-600 rounded-md bg-gray-900 text-gray-300 hover:bg-gray-700 disabled:opacity-50"
+      >
+        Next
+      </button>
+    </div>
+    <select
+      [(ngModel)]="itemsPerPage"
+      class="px-4 py-2 border border-gray-600 rounded-md bg-gray-900 text-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+      (change)="updatePagination()"
+    >
+      <option *ngFor="let option of [5, 10, 15]" [value]="option">{{ option }}</option>
+    </select>
+  </div>
+</div>
