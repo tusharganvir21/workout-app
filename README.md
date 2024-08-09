@@ -80,7 +80,7 @@ Here are some screenshots of the Workout App:
 
 ## Live Demo
 
-You can check out the live version of the Workout App [here]([https://your-username.github.io/workout-app](https://tusharganvir21.github.io/workout-app/)).
+You can check out the live version of the Workout App [here](https://tusharganvir21.github.io/workout-app/).
 
 
 
