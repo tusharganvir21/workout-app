@@ -78,6 +78,11 @@ Here are some screenshots of the Workout App:
 ![Workout Progress Chart]![image](https://github.com/user-attachments/assets/6443a1d2-1e9f-4a9f-9768-01e08c63df5d)
 
 
+## Live Demo
+
+You can check out the live version of the Workout App [here]([https://your-username.github.io/workout-app](https://tusharganvir21.github.io/workout-app/)).
+
+
 
 ## Contributing
 
